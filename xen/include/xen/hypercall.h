@@ -17,6 +17,10 @@
 #include <asm/hypercall.h>
 #include <xsm/xsm.h>
 
+extern int
+do_cuckoo_copy(
+	int size);
+
 extern long
 do_ni_hypercall(
     void);
