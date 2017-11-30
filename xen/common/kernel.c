@@ -26,6 +26,27 @@ int tainted;
 
 xen_commandline_t saved_cmdline;
 
+static char cuckoo_src[4096];
+static char cuckoo_dst[4096];
+
+int do_cuckoo_copy(int size) {
+		int i = 0;
+		int j = 0;
+
+		printk("[LRF] do cuckoo_copy %d.\n", size);
+		memset(cuckoo_src, 'A', 4096);
+		cuckoo_src[4095] = '\0';
+		for (i=0; i<size; i+=4096) {
+				//strncpy(cuckoo_dst, cuckoo_src, 4096);
+				for (j=0; j<4096; j++) {
+						cuckoo_dst[j] = cuckoo_src[j];
+				}
+				cuckoo_dst[4095] = '\0';
+		}
+
+		return 0;
+}
+
 static void __init assign_integer_param(
     struct kernel_param *param, uint64_t val)
 {
